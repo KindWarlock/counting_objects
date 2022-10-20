@@ -83,6 +83,7 @@ down_mask[2:, 2:4] = 0
 
 masks = {'[]': base_mask, ']': left_mask, '[': right_mask, 'u': up_mask, 'n': down_mask}
 base_num = 0
+sum = 0
 
 for i in labels:
     masked = scipy.ndimage.binary_erosion(arr, structure=masks[i])
@@ -93,13 +94,16 @@ for i in labels:
         labeled = base_num
     else:
         labeled = label(masked).max() - base_num
-    
+    sum += labeled
     print(f'{i}: {labeled}')
-    #
-    # OUTPUT 
-    #
-    # []: 92
-    # ]: 123
-    # [: 94
-    # u: 95
-    # n: 96
+
+print(f'All: {sum}')
+#
+# OUTPUT 
+#
+# []: 92
+# ]: 123
+# [: 94
+# u: 95
+# n: 96
+# All: 500
